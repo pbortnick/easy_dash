@@ -1,0 +1,10 @@
+<h3><%= "Logged in as #{@current_user.first_name}" %></h3>
+<% @categories.each do |category| %>
+<div class="categories">
+  <h4><%= category.name.humanize %></h4>
+  <% category.products.each do |product| %>
+    <%= render product %>
+  <% end %>
+</div>
+  <hr>
+<% end %>
