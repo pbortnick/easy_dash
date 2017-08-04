@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def current_user
-    Customer.find_by_email('john_doe@example.com')
+    Customer.first
   end
   
 end

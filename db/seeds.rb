@@ -1,7 +1,7 @@
 customer = Customer.create(
   first_name:   'John',
   last_name:    'Doe',
-  email:        'john_doe@example.com'
+  email:        "john_doe#{SecureRandom.hex(6)}@example.com"
 )
 
 # Create Customer on Stripe
