@@ -1,0 +1,7 @@
+<%= debug @subscription_items %>
+
+<% @subscription_items.each do |subscription_item| %>
+
+  <li><%= subscription_item.product.title %></li>
+
+<% end %>

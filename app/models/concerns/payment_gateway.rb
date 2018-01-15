@@ -13,4 +13,18 @@ class PaymentGateway
     end
   end
 
+  def self.create_subscription(subscription)
+    begin
+      Stripe::Plan.create(
+        :amount => plan.subscription.product.price,
+        :interval => "month",
+        :name => plan.subscription.product.name,
+        :currency => "usd",
+        :id => plan.subscription.ame
+      )
+    rescue => e
+      puts "EXCEPTION: #{e.message}"
+    end
+  end
+
 end

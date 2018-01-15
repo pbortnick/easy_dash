@@ -3,8 +3,10 @@ Rails.application.routes.draw do
   root to: 'home#index', via: :get
 
   resources :products, only: ['index', 'show']
-  resources :subscription_items, only: ['create']
+  resources :subscription_items, only: ['index', 'create']
   resources :subscriptions
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

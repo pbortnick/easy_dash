@@ -2,6 +2,10 @@
   <%= image_tag(product.image_path) %>
 
 
-  <%= button_to 'Subscribe', subscription_items_path(product_id: product) %>
+  <!-- <%= button_to 'Subscribe', subscription_items_path(product_id: product) %> -->
   <!-- <button>Subscribe</button> -->
+
+  <%= form_tag subscription_path(@subscription) do %>
+    <button type="submit">Subscribe</button>
+  <% end %>
 </div>
