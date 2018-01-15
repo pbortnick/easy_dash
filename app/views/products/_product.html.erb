@@ -1,5 +1,7 @@
 <div class="products">
   <%= image_tag(product.image_path) %>
 
-  <button>Subscribe</button>
+
+  <%= button_to 'Subscribe', subscription_items_path(product_id: product) %>
+  <!-- <button>Subscribe</button> -->
 </div>

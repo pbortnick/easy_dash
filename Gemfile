@@ -45,3 +45,5 @@ group :development, :test do
 end
 
 gem 'stripe-rails'
+
+gem "stripe_event"
