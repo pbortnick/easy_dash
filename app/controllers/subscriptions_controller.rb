@@ -5,6 +5,10 @@ class SubscriptionsController < ApplicationController
   def new
   end
 
+  def show
+    @subscription = Subscription.find(params[:id])
+  end
+
   def create
       customer =
       if current_user.stripe_id?
@@ -34,9 +38,6 @@ class SubscriptionsController < ApplicationController
   #   @subscriptions = Subscription.all
   # end
   #
-  def show
-    @subscription = Subscription.find(params[:id])
-  end
 
   # def checkout
   #   subscription = Subscription.find(params[:id])

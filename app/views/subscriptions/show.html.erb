@@ -1,7 +1,5 @@
 <h1>Your Subscriptions</h1>
 
-<%= debug @subscription.products %>
-
 <% @subscription.subscription_items.each do |subscription_item| %>
-  <p><%= link_to subscription_item.product.title, product_path(subscription_item.product) %> | $<%= subscription_item.product.price%> </p>
+  <p><%= subscription_item.product.category_name.humanize %></p>
 <% end %>
