@@ -2,6 +2,9 @@ class SubscriptionsController < ApplicationController
 
   before_action :set_current_user
 
+  def new
+  end
+
   def create
       customer =
       if current_user.stripe_id?
