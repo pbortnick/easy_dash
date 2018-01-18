@@ -1,9 +1,9 @@
+
 <div class="products">
   <%= image_tag(product.image_path) %>
 
-  <%= form_tag subscription_path, method: :post dp %>
-    <%= submit_tag 'Subscribe' %>
-  <% end %>
+  <%= button_to "Subscribe", subscriptions_path(:method => :post)%>
+
 
 
 

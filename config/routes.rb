@@ -3,8 +3,7 @@ Rails.application.routes.draw do
   root to: 'home#index', via: :get
 
   resources :products, only: [:index, :show]
-  resources :subscriptions, only: [:show]
-  post '/subscription_items/:product_id' => 'subscription_items#create', as: "subscription_items"
+  resources :subscriptions
 
 
 

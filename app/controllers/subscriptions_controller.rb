@@ -1,3 +1,5 @@
+require "stripe"
+
 class SubscriptionsController < ApplicationController
 
   before_action :set_current_user
@@ -7,13 +9,25 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
-    @subscription = Subscription.new(plan_id: params[:subscription_item_id][:product_id][:category_id])
+    # create or update subscription in Stripe
+    if current_customer.subscription.exists?
+    # update the subscription with new plan
+      @subscription = Stripe::Subscription.retrieve({SUBSCRIPTION_ID})
+      @subscription.plans.push( Plan.find_by(product_id: product_id]))
+      @subscription.save
+    #else, create new subscription
+    else
+      @subscription = Stripe::Subscription.create(
+      :customer => current_customer,
+      :items => [
+        {
+          :plan => Plan.find_by(product_id: product_id]),
+        },
+        ]
+      )
+    end
     redirect_to subscriptions_path
   end
-
-
-
-
   # def destroy
   #   customer = Stripe::Customer.retrieve(current_user.stripe_id)
   #   customer.subscriptions.retrieve(current_user.stripe_subscription_id).delete
