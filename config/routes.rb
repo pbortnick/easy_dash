@@ -2,9 +2,14 @@ Rails.application.routes.draw do
 
   root to: 'home#index', via: :get
 
-  resources :products, only: ['index', 'show']
-  resources :subscription_items, only: ['index', 'create']
-  resources :subscriptions
+  resources :products, only: [:index, :show]
+  resources :subscriptions, only: [:show]
+  post '/subscription_items/:product_id' => 'subscription_items#create', as: "subscription_items"
+
+
+
+  # post 'webhooks' => 'subscription#webhooks'
+
 
 
 
