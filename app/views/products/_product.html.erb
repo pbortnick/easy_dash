@@ -1,5 +1,6 @@
 
 <div class="products">
+  <%= debug product %>
   <%= image_tag(product.image_path) %>
 
   <%= button_to "Subscribe", subscriptions_path(:method => :post)%>

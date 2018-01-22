@@ -13,6 +13,7 @@ class SubscriptionsController < ApplicationController
     if @current_user.subscriptions.exists?
     # update the subscription with new plan
       @subscription = Stripe::Subscription.retrieve(@current_user.subscription.stripe_id)
+      # @subscription.push(:plan => Product.find(params[:product_id]))
       @subscription.save
     #else, create new subscription
     else
@@ -20,7 +21,8 @@ class SubscriptionsController < ApplicationController
       :customer => @current_user.stripe_id,
       :items => [
         {
-          :plan => Product.find(params[:product_id])
+          # :plan => Plan.find(params[:id]).plan
+          :plan => Plan.find(params[:product_id])
         },
         ]
       )

@@ -1,8 +1,5 @@
 class Product < ActiveRecord::Base
   belongs_to :category
-
-
-  
   has_many :subscription_items
 
   def image_path
