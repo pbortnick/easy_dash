@@ -1,14 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <% @subscriptions.each do |subscription| %>
+  <% if subscription.status == 'active' %>
     <li>
-      <%=debug subscription.status %>
       <%= subscription.category.name.humanize %>
-
+      <br>
       <%= link_to 'Cancel Subscription', subscription_path(subscription), :method=>:delete %>
-
-
+      <br></br>
     </li>
+  <% end %>
 
 
 <% end %>
