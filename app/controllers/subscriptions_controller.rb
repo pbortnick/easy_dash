@@ -18,6 +18,7 @@ class SubscriptionsController < ApplicationController
     # Locate specific subscription
     if @subscription && @subscription.status = 'canceled'
         @subscription.status = 'active'
+        @subscription.save
     elsif @subscription && @subscription.status = 'active'
     #  update the subscription with new plan
       Stripe::SubscriptionItem.create(
