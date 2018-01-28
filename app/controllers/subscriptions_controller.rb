@@ -12,9 +12,13 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
+    set_product
+    set_subscription
     # create or update subscription in Stripe
     # Locate specific subscription
-    if @subscription
+    if @subscription && @subscription.status = 'canceled'
+        @subscription.status = 'active'
+    elsif @subscription && @subscription.status = 'active'
     #  update the subscription with new plan
       Stripe::SubscriptionItem.create(
             subscription: @subscription.stripe_id,
@@ -25,6 +29,7 @@ class SubscriptionsController < ApplicationController
               :currency => "usd"
             ).id
         )
+
     # else, create new subscription
     else
       @subscription = Stripe::Subscription.create(
@@ -40,7 +45,10 @@ class SubscriptionsController < ApplicationController
         }
         ]
       )
-      Subscription.create(:stripe_id => @subscription.id, :customer_id => @current_user.id, :category_id => @product.category_id)
+
+      Subscription.create(:stripe_id => @subscription.id, :customer_id => @current_user.id, :category_id => @product.category_id, :status => 'active')
+
+
     end
 
     redirect_to subscriptions_path
@@ -48,10 +56,12 @@ class SubscriptionsController < ApplicationController
 
   # cancel customer subscription without deleting subscription option
   def destroy
-    @current_user.subscriptions.retrieve(current_user.stripe_subscription_id).delete
-    current_user.update(stripe_subscription_id: nil)
+    @subscription = Subscription.find(params[:id])
 
-    redirect_to root_path, notice: "Your subscription has been canceled."
+    @subscription.status = 'canceled'
+
+    redirect_to subscriptions_path, notice: "Your #{@subscription.category.name} subscription has been canceled."
+    @subscription.save
   end
 
   private

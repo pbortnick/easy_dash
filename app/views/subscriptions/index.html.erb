@@ -1,9 +1,14 @@
-<% @subscriptions.each do |subscription| %>
-  <li>
-    <%= subscription.category.name.humanize %>
-    <!-- display category name
-    display cancel button to subscriptions#destroy-->
+<p id="notice"><%= notice %></p>
 
-  </li>
+<% @subscriptions.each do |subscription| %>
+    <li>
+      <%=debug subscription.status %>
+      <%= subscription.category.name.humanize %>
+
+      <%= link_to 'Cancel Subscription', subscription_path(subscription), :method=>:delete %>
+
+
+    </li>
+
 
 <% end %>

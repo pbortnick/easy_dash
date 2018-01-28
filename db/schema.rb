@@ -63,9 +63,9 @@ ActiveRecord::Schema.define(version: 20180127172721) do
   create_table "subscriptions", force: :cascade do |t|
     t.string   "stripe_id"
     t.integer  "customer_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "status",      default: true
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "status"
     t.integer  "category_id"
   end
 
