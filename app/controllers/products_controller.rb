@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
 
   def index
     @categories = Category.all
+    @subscriptions = Subscription.all
   end
 
   def show

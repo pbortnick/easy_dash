@@ -1,0 +1,1 @@
+move functionality to models!

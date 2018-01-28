@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170410231830) do
+ActiveRecord::Schema.define(version: 20180127172721) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -63,8 +63,10 @@ ActiveRecord::Schema.define(version: 20170410231830) do
   create_table "subscriptions", force: :cascade do |t|
     t.string   "stripe_id"
     t.integer  "customer_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "status",      default: true
+    t.integer  "category_id"
   end
 
   add_index "subscriptions", ["customer_id"], name: "index_subscriptions_on_customer_id"

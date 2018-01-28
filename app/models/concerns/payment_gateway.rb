@@ -13,31 +13,20 @@ class PaymentGateway
     end
   end
 
-  def self.create_customer(customer)
-    begin
-      Stripe::Customer.create(
-        :description => "Sample",
-        :source => "tok_amex"
-      )
-    rescue => e
-      puts "EXCEPTION: #{e.message}"
-    end
-  end
-
-  def self.create_subscription
-    begin
-      Stripe::Subscription.create(
-        :customer => current_customer.id,
-        :items => [
-          {
-            :plan => "ruby-elite-206",
-          },
-        ]
-      )
-    rescue => e
-      puts "EXCEPTION: #{e.message}"
-    end
-  end
+  # def self.create_subscription(plan)
+  #   begin
+  #     Stripe::Subscription.create(
+  #       :customer => current_customer.stripe_id,
+  #       :items => [
+  #         {
+  #           :plan => "#{plan.name}",
+  #         },
+  #       ]
+  #     )
+  #   rescue => e
+  #     puts "EXCEPTION: #{e.message}"
+  #   end
+  # end
 
 
 end
