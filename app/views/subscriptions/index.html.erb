@@ -4,6 +4,8 @@
   <% if subscription.status == 'active' %>
     <li>
       <%= subscription.category.name.humanize %>
+      <%= debug subscription.subscription_items %>
+
       <br>
       <%= link_to 'Cancel Subscription', subscription_path(subscription), :method=>:delete %>
       <br></br>

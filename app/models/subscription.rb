@@ -3,9 +3,4 @@ class Subscription < ActiveRecord::Base
   has_many :subscription_items
   belongs_to :category
 
-  # has_many :categories, through: :subscription_items
-  # has_many :products, through: :subscription_items
-
-
-
 end

@@ -3,9 +3,6 @@ require "stripe"
 class SubscriptionsController < ApplicationController
 
   before_action :set_current_user
-  before_action :set_product, only: [:create]
-  before_action :set_subscription, only: [:create]
-
 
   def index
     @subscriptions = @current_user.subscriptions
@@ -48,6 +45,21 @@ class SubscriptionsController < ApplicationController
       )
 
       Subscription.create(:stripe_id => @subscription.id, :customer_id => @current_user.id, :category_id => @product.category_id, :status => 'active')
+
+      @plan = Plan.create(:name => @product.name, :product_id => @product.id)
+
+      @subscription_item = Stripe::SubscriptionItem.create(
+        :subscription => @subscription.id,
+        :plan => Stripe::Plan.create(
+          :amount => @product.price,
+          :interval => "month",
+          :name => @product.name,
+          :currency => "usd"
+        ).id,
+        :quantity => 1,
+      )
+
+      SubscriptionItem.create(:stripe_id => @subscription_item.id, :subscription_id => @subscription.id, :product_id => @product.id)
 
 
     end
