@@ -1,6 +1,7 @@
 require "stripe"
 
 class SubscriptionsController < ApplicationController
+  include SubscriptionsHelper
 
   before_action :set_current_user
 
@@ -14,54 +15,13 @@ class SubscriptionsController < ApplicationController
     # create or update subscription in Stripe
     # Locate specific subscription
     if @subscription && @subscription.status = 'canceled'
-        @subscription.status = 'active'
-        @subscription.save
+        re_subscribe
     elsif @subscription && @subscription.status = 'active'
-    #  update the subscription with new plan
-      Stripe::SubscriptionItem.create(
-            subscription: @subscription.stripe_id,
-            :plan => Stripe::Plan.create(
-              :amount => @product.price,
-              :interval => "month",
-              :name => @product.name,
-              :currency => "usd"
-            ).id
-        )
-
-    # else, create new subscription
+      add_plan
     else
-      @subscription = Stripe::Subscription.create(
-      :customer => @current_user.stripe_id,
-      :items => [
-        {
-          :plan => Stripe::Plan.create(
-            :amount => @product.price,
-            :interval => "month",
-            :name => @product.name,
-            :currency => "usd"
-          ).id
-        }
-        ]
-      )
-
-      Subscription.create(:stripe_id => @subscription.id, :customer_id => @current_user.id, :category_id => @product.category_id, :status => 'active')
-
-      @plan = Plan.create(:name => @product.name, :product_id => @product.id)
-
-      @subscription_item = Stripe::SubscriptionItem.create(
-        :subscription => @subscription.id,
-        :plan => Stripe::Plan.create(
-          :amount => @product.price,
-          :interval => "month",
-          :name => @product.name,
-          :currency => "usd"
-        ).id,
-        :quantity => 1,
-      )
-
-      SubscriptionItem.create(:stripe_id => @subscription_item.id, :subscription_id => @subscription.id, :product_id => @product.id)
-
-
+      create_subscription
+      create_plan
+      create_subscription_item
     end
 
     redirect_to subscriptions_path
