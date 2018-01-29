@@ -4,7 +4,9 @@
   <% if subscription.status == 'active' %>
     <li>
       <%= subscription.category.name.humanize %>
-
+      <% subscription.plans.each do |plan| %>
+        <%= plan.name %>
+      <% end %>
       <br>
       <%= link_to 'Cancel Subscription', subscription_path(subscription), :method=>:delete %>
       <br></br>

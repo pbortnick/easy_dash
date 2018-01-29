@@ -36,11 +36,13 @@ ActiveRecord::Schema.define(version: 20180128212411) do
   create_table "plans", force: :cascade do |t|
     t.string   "name"
     t.integer  "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "subscription_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "plans", ["product_id"], name: "index_plans_on_product_id"
+  add_index "plans", ["subscription_id"], name: "index_plans_on_subscription_id"
 
   create_table "products", force: :cascade do |t|
     t.string   "name"

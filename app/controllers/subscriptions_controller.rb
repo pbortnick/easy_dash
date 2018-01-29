@@ -7,15 +7,16 @@ class SubscriptionsController < ApplicationController
 
   def index
     @subscriptions = @current_user.subscriptions
+    @plans = Plan.all
   end
 
   def create
     set_product
     set_subscription
-    # create or update subscription in Stripe
+    # create or update subscription in Stripe and database
     # Locate specific subscription
     if @subscription && @subscription.status = 'canceled'
-        re_subscribe
+      re_subscribe
     elsif @subscription && @subscription.status = 'active'
       add_plan
     else
@@ -27,7 +28,7 @@ class SubscriptionsController < ApplicationController
     redirect_to subscriptions_path
   end
 
-  # cancel customer subscription without deleting subscription option
+  # cancel customer subscription without deleting subscription
   def destroy
     @subscription = Subscription.find(params[:id])
 
