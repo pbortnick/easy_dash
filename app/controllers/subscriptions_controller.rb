@@ -19,6 +19,7 @@ class SubscriptionsController < ApplicationController
       re_subscribe
     elsif @subscription && @subscription.status = 'active'
       add_plan
+      create_plan
     else
       create_subscription
       create_plan

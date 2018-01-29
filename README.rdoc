@@ -14,5 +14,8 @@ $ bundle install
 $ rake db:setup
 $ rails s (to view on browser localhost)
 
+* Overview
+Allow users to subscribe to multiple plans without adding multiple subscriptions (if plans are within same category). Users may cancel subscription without the subscription option being deleted from the database. Users can re-add a previously cancelled subscription.
+
 * Future add ons
-To be able to view all plans subscribed to within the subscriptions index view page
+To be able to view all plans subscribed to on the subscriptions index view page

@@ -4,9 +4,14 @@
   <% if subscription.status == 'active' %>
     <li>
       <%= subscription.category.name.humanize %>
-      <% subscription.plans.each do |plan| %>
-        <%= plan.name %>
-      <% end %>
+      <br>
+      <p> Subscribed Plans:
+        <% @plans.each do |plan| %>
+            <% if plan.subscription_id == subscription.id %>
+              <%= plan.name %><br>
+            <% end %>
+        <% end %>
+      </p>
       <br>
       <%= link_to 'Cancel Subscription', subscription_path(subscription), :method=>:delete %>
       <br></br>
@@ -15,3 +20,5 @@
 
 
 <% end %>
+
+<%= link_to 'Back to Products List', products_path %>
